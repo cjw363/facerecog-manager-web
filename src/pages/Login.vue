@@ -70,6 +70,15 @@
         this.$refs[formName].validate((isValid) => {
           var model = this.$refs[formName].model;
           if (isValid) {
+            this.$axios.post('/user/login',{
+              name: model.name,
+              password: model.password
+            }).then((resp) => {
+              this.$router.push("/web");
+              console.log(resp)
+            }).catch((e) => {
+              console.log(e)
+            })
           }
         });
       },
@@ -85,7 +94,7 @@
     color: #222222;
     text-align: center;
     line-height: 60px;
-    font-size:26px;
+    font-size: 26px;
   }
 
   .login-container {

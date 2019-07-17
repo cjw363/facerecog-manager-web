@@ -70,10 +70,10 @@
         this.$refs[formName].validate((isValid) => {
           var model = this.$refs[formName].model;
           if (isValid) {
-            this.$axios.post('/user/login',{
+            this.$axios.post('/user/login', this.$qs.stringify({
               name: model.name,
               password: model.password
-            }).then((resp) => {
+            })).then((resp) => {
               this.$router.push("/web");
               console.log(resp)
             }).catch((e) => {

@@ -40,6 +40,11 @@
       },
       onHandleExpand(data, node, tree) {
       }
+    },
+    created() {
+      this.$get('/device/list').then(result => {
+        this.items[1].children = result.data.list;
+      })
     }
   }
 </script>

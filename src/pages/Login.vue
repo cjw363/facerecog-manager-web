@@ -70,10 +70,10 @@
         this.$refs[formName].validate((isValid) => {
           var model = this.$refs[formName].model;
           if (isValid) {
-            this.$post('/user/login',{
+            this.$post('/user/login', {
               name: model.name,
               password: model.password
-            }).then(data=>{
+            }).then(data => {
               this.$router.push("/web");
             })
           }

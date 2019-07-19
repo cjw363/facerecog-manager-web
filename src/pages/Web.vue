@@ -107,17 +107,17 @@
     margin-right: 5px;
   }
 
-  .el-container::-webkit-scrollbar,.el-main::-webkit-scrollbar,.el-aside::-webkit-scrollbar { /*滚动条整体样式*/
+  .el-container::-webkit-scrollbar, .el-main::-webkit-scrollbar, .el-aside::-webkit-scrollbar { /*滚动条整体样式*/
     width: 12px; /*高宽分别对应横竖滚动条的尺寸*/
     height: 1px;
   }
 
-  .el-container::-webkit-scrollbar-thumb,.el-main::-webkit-scrollbar-thumb,.el-aside::-webkit-scrollbar-thumb { /*滚动条里面小方块*/
+  .el-container::-webkit-scrollbar-thumb, .el-main::-webkit-scrollbar-thumb, .el-aside::-webkit-scrollbar-thumb { /*滚动条里面小方块*/
     border-radius: 12px;
     background: #CCCCCC;
   }
 
-  .el-container::-webkit-scrollbar-track,.el-main::-webkit-scrollbar-track,.el-aside::-webkit-scrollbar-track { /*滚动条里面轨道*/
+  .el-container::-webkit-scrollbar-track, .el-main::-webkit-scrollbar-track, .el-aside::-webkit-scrollbar-track { /*滚动条里面轨道*/
     border-radius: 12px;
     background: #E1E1E1;
   }

@@ -18,9 +18,13 @@ export default new Router({
       path: '/',
       redirect: '/login'
     },
+    {// 默认重定向
+      path: '/web',
+      redirect: '/device/device'
+    },
     route('/login', '/Login', 'Login'),
     route('/web', '/Web', 'Web', [
-      route('/device/device','/device/Device',"Device")
+      route('/device/device', '/device/Device', "Device")
     ])
   ]
 })

@@ -42,8 +42,9 @@
       }
     },
     created() {
-      this.$get('/device/list').then(result => {
-        this.items[1].children = result.data.list;
+      this.$get('/device/all_list').then(result => {
+        this.items[0].children = result.data[0].list;
+        this.items[1].children = result.data[1].list;
       })
     }
   }

@@ -27,14 +27,8 @@
         </el-table-column>
         <el-table-column prop="online" label="在线" min-width="10%">
           <template slot-scope="scope">
-            <el-tag
-              v-if="scope.row.online===1" :type="'success'"
-              disable-transitions>在线
-            </el-tag>
-            <el-tag
-              v-if="scope.row.online===0" :type="'info'"
-              disable-transitions>离线
-            </el-tag>
+            <el-tag v-if="scope.row.online===1" :type="'success'" disable-transitions>在线</el-tag>
+            <el-tag v-if="scope.row.online===0" :type="'info'" disable-transitions>离线</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="注册时间" min-width="20%">

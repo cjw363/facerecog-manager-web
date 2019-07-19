@@ -17,6 +17,9 @@
     name: "Device",
     components: {
       DeviceTree
+    },
+    created(){
+      this.$router.push("/device/device_tbl")
     }
   }
 </script>
@@ -27,5 +30,8 @@
     border-right: solid 1px #e6e6e6;
   }
 
+  .el-main {
+    padding: 20px;
+  }
 
 </style>

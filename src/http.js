@@ -35,12 +35,10 @@ axios.interceptors.response.use((response) => {
   //对响应数据做一些处理
   closeLoading();
   if (0 !== response.data.code) {
-    if (102 === response.data.code)
-      Message.confirm(response.data.message + ",是否重新登录?")
-        .then(() => router.push("/login"))
-        .catch(() => {
-        })
-    else
+    if (102 === response.data.code) {
+      router.push("/login")
+      Message.warning(response.data.message + ",请重新登录")
+    } else
       Message.alert(response.data.message)
   }
   return response;
@@ -71,10 +69,11 @@ export function closeLoading() {
 
 export function axiosGet(url, params = {}) {
   return new Promise((resolve, reject) => {
-    axios.get(url, qs.stringify(params))
-      .then(response => {
-        0 === response.data.code && resolve(response.data);
-      })
+    axios.get(url, {
+      params: params
+    }).then(response => {
+      0 === response.data.code && resolve(response.data);
+    })
       .catch(err => {
       })
   })

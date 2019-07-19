@@ -45,6 +45,9 @@
     },
     components: {
       NavMenu
+    },
+    created(){
+      this.$router.push("/device/device")
     }
   }
 </script>
@@ -74,6 +77,10 @@
     margin: 0;
   }
 
+  .el-pagination{
+    margin-top: 10px;
+  }
+
   * {
     margin: 0;
     padding: 0;
@@ -87,6 +94,10 @@
 
   a:hover, a:visited, a:active, a:focus, a:-webkit-any-link {
     text-decoration: none;
+  }
+
+  .box{
+    text-align: center;
   }
 
   .image {

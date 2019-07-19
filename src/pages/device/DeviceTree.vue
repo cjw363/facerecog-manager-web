@@ -37,6 +37,15 @@
     },
     methods: {
       onNodeClick(data) {
+        if (data.device_id > 0) {
+          console.log("onNodeClick")
+          this.$router.push({
+            name: "DeviceDetail",
+            params: {
+              id: data.device_id
+            }
+          })
+        }
       },
       onHandleExpand(data, node, tree) {
       }

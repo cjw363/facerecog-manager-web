@@ -21,7 +21,8 @@ export default new Router({
     route('/login', '/Login', 'Login'),
     route('/web', '/Web', 'Web', [
       route('/device/device', '/device/Device', "Device", [
-        route('/device/device_tbl', '/device/DeviceTbl', "DeviceTbl")
+        route('/device/device_tbl', '/device/DeviceTbl', "DeviceTbl"),
+        route('/device/device_detail', '/device/DeviceDetail', "DeviceDetail"),
       ]),
     ])
   ]

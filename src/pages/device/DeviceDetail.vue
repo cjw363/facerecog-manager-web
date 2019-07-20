@@ -6,7 +6,6 @@
     export default {
         name: "DeviceDetail",
       created(){
-          console.log(this.$route.params.id)
       }
     }
 </script>

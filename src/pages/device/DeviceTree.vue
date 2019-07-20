@@ -38,16 +38,28 @@
     methods: {
       onNodeClick(data) {
         if (data.device_id > 0) {
-          console.log("onNodeClick")
           this.$router.push({
-            name: "DeviceDetail",
-            params: {
+            path: "/device/device_detail",
+            query: {
               id: data.device_id
             }
           })
         }
       },
       onHandleExpand(data, node, tree) {
+      }
+    },
+    beforeRouteUpdate (to, from, next) {
+      console.log(from);
+      console.log(to);
+      console.log("update");
+      next();
+    },
+    watch: {
+      "$route" (to, from) {
+        console.log(from);
+        console.log(to);
+        console.log("watch");
       }
     },
     created() {

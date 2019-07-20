@@ -81,6 +81,10 @@
     margin-top: 10px;
   }
 
+  .el-breadcrumb{
+    margin-bottom: 15px;
+  }
+
   * {
     margin: 0;
     padding: 0;

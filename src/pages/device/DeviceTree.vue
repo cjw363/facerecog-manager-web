@@ -37,29 +37,15 @@
     },
     methods: {
       onNodeClick(data) {
-        if (data.device_id > 0) {
+        if (data.device_id > 0)
           this.$router.push({
             path: "/device/device_detail",
             query: {
-              id: data.device_id
-            }
+              device_sn: data.status === 0 ? data.device_name : data.device_sn
+            },
           })
-        }
       },
       onHandleExpand(data, node, tree) {
-      }
-    },
-    beforeRouteUpdate (to, from, next) {
-      console.log(from);
-      console.log(to);
-      console.log("update");
-      next();
-    },
-    watch: {
-      "$route" (to, from) {
-        console.log(from);
-        console.log(to);
-        console.log("watch");
       }
     },
     created() {

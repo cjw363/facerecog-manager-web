@@ -29,11 +29,12 @@ const m = {
       type: 'warning'
     });
   },
-  alert(msg){
+  alert(msg) {
     return new Promise((resolve, reject) => {
       MessageBox.alert(msg, '提示', {
         showConfirmButton: false,
         showCancelButton: false,
+        closeOnClickModal: true,
         type: 'warning'
       }).then(() => {
       }).catch(() => {

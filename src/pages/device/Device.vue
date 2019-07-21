@@ -1,5 +1,5 @@
 <template>
-  <el-container>
+  <el-container v-if="reFresh">
     <el-aside width="250px">
       <DeviceTree/>
     </el-aside>
@@ -7,7 +7,6 @@
       <router-view/>
     </el-main>
   </el-container>
-
 </template>
 
 <script>
@@ -18,8 +17,25 @@
     components: {
       DeviceTree
     },
-    created(){
+    created() {
       this.$router.push("/device/device_tbl")
+    },
+    provide() {
+      return {
+        reloadDevice: this.reload
+      }
+    },
+    data() {
+      return {
+        reFresh: true
+      }
+    },
+    methods: {
+      async reload() {
+        this.reFresh = false
+        await this.$nextTick()
+        this.reFresh = true
+      }
     }
   }
 </script>

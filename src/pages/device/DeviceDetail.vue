@@ -3,7 +3,7 @@
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item>设备管理</el-breadcrumb-item>
       <el-breadcrumb-item>设备详情</el-breadcrumb-item>
-      <el-breadcrumb-item>设备详情</el-breadcrumb-item>
+      <el-breadcrumb-item>{{device.device_name}}</el-breadcrumb-item>
     </el-breadcrumb>
 
     <template>
@@ -12,10 +12,10 @@
           <DeviceInfo :device="device"/>
         </el-tab-pane>
         <el-tab-pane label="功能配置" name="second">
-          <DeviceInfo/>
+          <DeviceConfig :device="device"/>
         </el-tab-pane>
         <el-tab-pane label="已授权人员" name="third">
-          <DeviceInfo/>
+          <DeviceGrantPerson :options2="device.group_list"/>
         </el-tab-pane>
       </el-tabs>
     </template>
@@ -24,6 +24,8 @@
 
 <script>
   import DeviceInfo from './tabs/DeviceInfo'
+  import DeviceConfig from './tabs/DeviceConfig'
+  import DeviceGrantPerson from './tabs/DeviceGrantPerson'
 
   export default {
     name: "DeviceDetail",
@@ -35,13 +37,15 @@
     },
     components: {
       DeviceInfo,
+      DeviceConfig,
+      DeviceGrantPerson
     },
     methods: {
       get() {
         this.$post('/device/detail', {
           device_sn: this.$route.query.device_sn
         }).then(result => {
-          this.device = result.data;
+          this.device = result.data
         })
       }
     },
@@ -55,11 +59,5 @@
 </script>
 
 <style scoped>
-  .el-form-item .el-input {
-    width: 400px;
-  }
 
-  .el-date-editor--datetimerange.el-input__inner {
-    width: 350px;
-  }
 </style>

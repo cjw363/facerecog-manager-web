@@ -32,8 +32,8 @@
         defaultProps: {
           children: 'children',
           label: 'device_name'
-        }
-      };
+        },
+      }
     },
     methods: {
       onNodeClick(data) {
@@ -52,6 +52,8 @@
       this.$get('/device/all_list').then(result => {
         this.items[0].children = result.data[0].list;
         this.items[1].children = result.data[1].list;
+
+        this.$store.commit('device/setDeviceList', this.items[1].children)
       })
     }
   }

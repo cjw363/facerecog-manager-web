@@ -70,8 +70,8 @@
           success_msg: this.deviceModel.success_msg,
           fail_msg: this.deviceModel.fail_msg
         }).then(result=>{
-          Message.info(result.message)
-          ////todo
+          Message.success(result.message)
+          this.deviceList.find(d=>d.device_sn===this.device.device_sn).device_name=this.deviceModel.device_name
         })
       },
       restoreDeviceInfo() {
@@ -81,6 +81,11 @@
     watch :{
       'device': function(newVal, oldVal){//监听device变化
         this.deviceModel=Object.assign({},this.device)//深度拷贝对象。如果直接赋值，传递的是引用，修改会连父组件都修改
+      }
+    },
+    computed: {
+      'deviceList': function () {
+        return this.$store.getters['device/getDeviceList']
       }
     }
   }

@@ -3,21 +3,15 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
 import './http'
 import './config'
-import qs from 'qs'
-
-Vue.config.productionTip = false // 阻止启动生产消息，常用作指令。
-
-Vue.use(ElementUI) // 引入ElementUI
-Vue.prototype.$qs = qs
+import store from './store'
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

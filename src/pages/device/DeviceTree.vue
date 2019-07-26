@@ -39,7 +39,7 @@
       onNodeClick(data) {
         if (data.device_id > 0)
           this.$router.push({
-            path: "/device/device_detail",
+            path: data.status === 0 ? '/device/device_inact_detail' : '/device/device_detail',
             query: {
               device_sn: data.status === 0 ? data.device_name : data.device_sn
             },

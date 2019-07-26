@@ -23,6 +23,7 @@ export default new Router({
       route('/device/device', '/device/Device', "Device", [
         route('/device/device_tbl', '/device/DeviceTbl', "DeviceTbl"),
         route('/device/device_detail', '/device/DeviceDetail', "DeviceDetail"),
+        route('/device/device_inact_detail', '/device/DeviceInactDetail', "DeviceInactDetail"),
       ]),
     ])
   ]

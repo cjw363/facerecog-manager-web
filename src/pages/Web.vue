@@ -68,6 +68,10 @@
     color: white;
     font-size: 16px;
   }
+
+  .el-main {
+    padding: 0;
+  }
 </style>
 
 <style>

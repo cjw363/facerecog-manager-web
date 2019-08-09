@@ -6,13 +6,13 @@
           <div style="float: left">
             <el-select v-model="selectGroupModel" clearable placeholder="请选择部门" size="small" @change="changeSelectGroup">
               <el-option
-                v-for="item in options2"
+                v-for="item in device.group_list"
                 :key="item.group_id"
                 :label="item.group_name"
                 :value="item.group_id">
               </el-option>
             </el-select>
-            <el-button type="primary" icon="el-icon-plus" @click="openDialogPerson" size="small">添加</el-button>
+            <el-button type="primary" icon="el-icon-plus" @click="dialogPerson" size="small">添加</el-button>
           </div>
 
           <div style="float: right">
@@ -49,8 +49,8 @@
         </el-table-column>
         <el-table-column prop="pass_start_time" label="通行时段" min-width="25%">
           <template slot-scope="scope">
-            <span v-if="scope.row.pass_start_time==='2286-11-21 01:46:39'||scope.row.pass_end_time==='2286-11-21 01:46:39'">无限时段</span>
-            <span v-if="scope.row.pass_start_time!=='2286-11-21 01:46:39'">{{scope.row.pass_start_time}} - {{scope.row.pass_end_time}}</span>
+            <span v-if="scope.row.pass_start_time.indexOf('2286')===0||scope.row.pass_end_time.indexOf('2286')===0">无限时段</span>
+            <span v-if="scope.row.pass_start_time.indexOf('2286')!==0">{{scope.row.pass_start_time|formatDate}} - {{scope.row.pass_end_time|formatDate}}</span>
           </template>
         </el-table-column>
         <el-table-column label="操作" min-width="20%">
@@ -77,16 +77,23 @@
         </el-pagination>
       </div>
     </template>
+
+    <DialogChangeGrant/>
   </div>
 </template>
 
 <script>
+  import DialogChangeGrant from '../dialog/DialogChangeGrant'
+
   export default {
     name: "DeviceGrantPerson",
+    components: {
+      DialogChangeGrant
+    },
     props: {
-      options2: {
-        type: Array,
-        required: false,
+      device: {
+        device_sn: '',
+        group_list: ''
       }
     },
     data() {
@@ -109,9 +116,37 @@
       }
     },
     methods: {
-      handleChange1() {
+      get(data = {
+        pageNum: this.currentPage1,
+        pageSize: this.pageSize1,
+        device_sn: this.device.device_sn
+      }) {
+        this.$get('/device/grant_person_list', data).then(result => {
+          this.tableData1 = result.data.list;
+          this.tableTotal = result.data.total;
+        })
       },
-      changeSelectGroup() {
+      handleChange1() {
+        this.get()
+      },
+      changeSelectGroup(value) {
+        this.get({
+          group_id: value,
+          pageNum: 1,
+          pageSize: this.pageSize1,
+          device_sn: this.device.device_sn
+        })
+      },
+      selectGrantPersonList() {
+        this.get({
+          pageNum: 1,
+          pageSize: this.pageSize1,
+          keyword: this.keyword,
+          device_sn: this.device.device_sn
+        })
+      },
+      dialogPerson() {
+
       },
       banGrantPerson() {
       },
@@ -125,10 +160,14 @@
       },
       dialog() {
       },
-      selectGrantPersonList() {
-      },
-      openDialogPerson() {
-      },
+    },
+    created() {
+      this.get()
+    },
+    watch: {
+      "device": function () {
+        this.get()
+      }
     }
   }
 </script>

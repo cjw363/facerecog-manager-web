@@ -15,7 +15,7 @@
           <DeviceConfig :device="device"/>
         </el-tab-pane>
         <el-tab-pane label="已授权人员" name="third">
-          <DeviceGrantPerson :options2="device.group_list"/>
+          <DeviceGrantPerson :device="device"/>
         </el-tab-pane>
       </el-tabs>
     </template>

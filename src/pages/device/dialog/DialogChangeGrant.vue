@@ -8,7 +8,7 @@
       show-checkbox
       ref="tree"></el-tree>
     <div slot="footer" class="dialog-footer">
-      <el-button @click="visible = false">取消</el-button>
+      <el-button @click="$store.commit('device/changeDialogDeviceListVs')">取消</el-button>
       <el-button type="primary" @click="onClickAddGrantPerson">添加</el-button>
     </div>
   </el-dialog>
@@ -28,13 +28,35 @@
           children: 'children',
           label: 'person_name'
         },
-        visible: false
       }
     },
     methods: {
       onClickAddGrantPerson() {
 
+
+        this.$store.commit('device/changeDialogDeviceListVs')
       }
+    },
+    computed: {
+      'visible': {
+        get(){
+          return this.$store.getters['device/getDialogDeviceListVs']
+        },
+        set(val){
+          this.$store.commit('device/setDialogDeviceListVs', val)
+        }
+      }
+    },
+    created(){
+      this.$get('/person/group_person_list', {}).then(result => {
+        result.data.list.forEach((item,i,arr)=>{
+          this.items[i]= {
+            person_id: -i,
+            person_name: item.group_name,
+            children: item.person_list
+          }
+        })
+      })
     }
   }
 </script>

@@ -1,19 +1,29 @@
 // initial state
 const state = {
-  deviceList:[]
+  deviceList: [],
+  dialogDeviceListVisible: ''
 }
 
 // getters
 const getters = {
-  getDeviceList(){
+  getDeviceList() {
     return state.deviceList
+  },
+  getDialogDeviceListVs() {
+    return state.dialogDeviceListVisible;
   }
 }
 
 // mutations
 const mutations = {
-  setDeviceList (state, device) {
+  setDeviceList(state, device) {
     state.deviceList = device
+  },
+  setDialogDeviceListVs(state, visible) {
+    state.dialogDeviceListVisible = visible
+  },
+  changeDialogDeviceListVs(state){
+    state.dialogDeviceListVisible = !state.dialogDeviceListVisible
   }
 }
 

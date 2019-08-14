@@ -103,7 +103,6 @@
         pageSizes1: [5, 10, 20],
         pageSize1: 10,
         tableTotal: 0,
-        visible: false,
         dialogModel: {
           radio1: '',
           radio2: '',
@@ -146,7 +145,7 @@
         })
       },
       dialogPerson() {
-
+        this.$store.commit('device/changeDialogDeviceListVs')
       },
       banGrantPerson() {
       },
@@ -163,10 +162,12 @@
     },
     created() {
       this.get()
+      this.$store.commit('device/setDialogDeviceListVs', false)
     },
     watch: {
       "device": function () {
         this.get()
+        this.$store.commit('device/setDialogDeviceListVs', false)
       }
     }
   }

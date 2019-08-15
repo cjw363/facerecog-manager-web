@@ -33,6 +33,7 @@
         </el-form-item>
       </el-form>
     </el-main>
+    <el-footer>许可证编号：<a href="http://beian.miitbeian.gov.cn">粤ICP备19097013号</a></el-footer>
   </el-container>
 </template>
 
@@ -94,6 +95,10 @@
     font-size: 26px;
   }
 
+  .el-footer{
+    text-align: center;
+  }
+
   .login-container {
     border-radius: 5px;
     -moz-border-radius: 5px;
@@ -121,6 +126,7 @@
 
   a {
     color: #222222;
+    text-decoration: none;
   }
 
   .el-dropdown-link {

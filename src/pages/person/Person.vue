@@ -1,0 +1,52 @@
+<template>
+  <el-container v-if="reFresh">
+    <el-aside width="250px">
+      <PersonTree/>
+    </el-aside>
+    <el-main>
+      <router-view/>
+    </el-main>
+  </el-container>
+</template>
+
+<script>
+  import PersonTree from './PersonTree'
+
+  export default {
+    name: "Person",
+    components: {
+      PersonTree
+    },
+    created() {
+      this.$router.push("/person/person_tbl")
+    },
+    provide() {
+      return {
+        reloadPerson: this.reload
+      }
+    },
+    data() {
+      return {
+        reFresh: true
+      }
+    },
+    methods: {
+      async reload() {
+        this.reFresh = false
+        await this.$nextTick()
+        this.reFresh = true
+      }
+    }
+  }
+</script>
+
+<style scoped>
+  .el-tree {
+    height: 100%;
+    border-right: solid 1px #e6e6e6;
+  }
+
+  .el-main {
+    padding: 20px;
+  }
+</style>

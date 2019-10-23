@@ -34,7 +34,7 @@ const menuData = {
             "icon": "el-icon-phone-outline",
             "alias": "人员列表",
             "state": "ENABLE",
-            "value": "person/person",
+            "value": "/person/person",
             "type": "LINK",
           },
           "childs": null
@@ -47,7 +47,7 @@ const menuData = {
             "icon": "el-icon-picture",
             "alias": "批量上传",
             "state": "ENABLE",
-            "value": "person/person_batch_upload",
+            "value": "/person/person_batch_upload",
             "type": "LINK",
           },
           "childs": null
@@ -62,7 +62,7 @@ const menuData = {
         "icon": "el-icon-printer",
         "alias": "权限管理",
         "state": "ENABLE",
-        "value": "grant/grant",
+        "value": "/grant/grant",
         "type": "LINK",
       },
       "childs": null
@@ -75,7 +75,7 @@ const menuData = {
         "icon": "el-icon-menu",
         "alias": "分组管理",
         "state": "ENABLE",
-        "value": "group/group",
+        "value": "/group/group",
         "type": "LINK",
       },
       "childs": null
@@ -88,7 +88,7 @@ const menuData = {
         "icon": "el-icon-document",
         "alias": "记录管理",
         "state": "ENABLE",
-        "value": "record/record",
+        "value": "/record/record",
         "type": "LINK",
       },
       "childs": null
@@ -101,7 +101,7 @@ const menuData = {
         "icon": "el-icon-bell",
         "alias": "考勤管理",
         "state": "ENABLE",
-        "value": "attend/attend",
+        "value": "/attend/attend",
         "type": "LINK",
       },
       "childs": null

@@ -1,5 +1,7 @@
-import {Message, MessageBox} from 'element-ui';
+import {Loading, Message, MessageBox} from 'element-ui';
 
+let loadingInstance;
+let loadingCount = 0;
 const m = {
   info(msg) {
     Message({
@@ -66,6 +68,23 @@ const m = {
         reject()
       });
     })
+  },
+  showLoading(text='') {
+    if (loadingCount === 0) {
+      loadingInstance = Loading.service(
+        {
+          lock: false,
+          background: 'rgba(0, 0, 0, 0.1)',
+          fullscreen: true,
+          text:text
+        });
+    }
+    loadingCount++
+  },
+  closeLoading() {
+    if (loadingCount <= 0) return
+    loadingCount--
+    loadingCount === 0 && loadingInstance.close();
   }
 }
 

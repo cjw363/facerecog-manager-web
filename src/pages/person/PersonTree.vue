@@ -47,15 +47,13 @@
       },
       addPerson() {
         this.$router.push('/person/person_add')
-      }
+      },
     },
     created() {
       this.$get('/person/list').then(result => {
         this.items[0].children = result.data.list;
-
-        // this.$store.commit('person/setPersonList', this.items[1].children)
       })
-    }
+    },
   }
 </script>
 

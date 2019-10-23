@@ -1,5 +1,5 @@
 <template>
-  <el-container v-if="reFresh">
+  <el-container  v-if="reFresh">
     <el-aside width="250px">
       <PersonTree/>
     </el-aside>
@@ -20,23 +20,23 @@
     created() {
       this.$router.push("/person/person_tbl")
     },
-    provide() {
-      return {
-        reloadPerson: this.reload
-      }
-    },
     data() {
       return {
         reFresh: true
       }
     },
-    methods: {
+    methods:{
       async reload() {
         this.reFresh = false
         await this.$nextTick()
         this.reFresh = true
       }
-    }
+    },
+    provide() {
+      return {
+        reloadPerson: this.reload
+      }
+    },
   }
 </script>
 

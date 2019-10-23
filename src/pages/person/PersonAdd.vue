@@ -30,19 +30,38 @@
         <el-button type="primary" v-on:click="onClickUpload()" size="medium">添加</el-button>
       </el-form-item>
     </el-form>
-    <DialogCropper :imageUrl="imageUrl" :file="file" :replace="replace" :uploadBlob="uploadBlob" :visible="visible"/>
+    <el-dialog title="请将头像位于框中"
+               :visible.sync="visible"
+               @opened="opened"
+               @closed="closed"
+               width="650px">
+      <el-row>
+        <el-col :span="16">
+          <div class="cropper-container">
+            <img>
+          </div>
+        </el-col>
+        <el-col :span="8">
+          <div class="cropper-preview"></div>
+        </el-col>
+      </el-row>
+
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="visible = false">取消</el-button>
+        <el-button type="primary" @click="onClickCropper">确定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-  import DialogCropper from './dialog/DialogCropper'
   import Message from '@/components/messages'
+  import Cropper from 'cropperjs'
+  import 'cropperjs/dist/cropper.css'//很重要
 
   export default {
     name: "PersonAdd",
-    components: {
-      DialogCropper
-    },
+    inject:['reloadPerson'],
     data() {
       return {
         model: {
@@ -110,36 +129,79 @@
         formData.append("emp_number", model.emp_number);
         formData.append("file", file);
 
-        $.ajax({
-          type: "POST",
-          url: "${pageContext.request.contextPath}/person/add",
-          contentType: false,//必须false才会自动加上正确的Content-Type
-          processData: false,//必须false才会避开jQuery对 formdata 的默认处理
-          data: formData,
-          beforeSend: function (xhr) {//setRequestHeader
-          },
-          xhr: function () { //获取ajaxSettings中的xhr对象，为它的upload属性绑定progress事件的处理函数
-            xhr = $.ajaxSettings.xhr();
-            if (xhr.upload) { //检查upload属性是否存在
-              //绑定progress事件的回调函数
-              xhr.upload.addEventListener('progress', function (e) {
-                l(Math.round(((e.loaded / e.total) || 0) * 100));
-              }, false);
-            }
-            return xhr; //xhr对象返回给jQuery使用
-          },
-          success: function (result) {
-            Message.success(result.message);
-            if (0 === result.code) {
-            }
-          },
-          error: function (error) {
-            Message.alert(error.statusText);
-          },
-          complete: function (xhr, textStatus) {
-            Message.closeLoading();
+
+        this.$axios.post('/person/add', formData, {
+          //添加请求头
+          headers: {"Content-Type": "multipart/form-data"},
+          //添加上传进度监听事件
+          onUploadProgress: e => {
+            let completeProgress = ((e.loaded / e.total * 100) | 0) + "%";
+            console.log(completeProgress)
           }
+        })
+          .then(response => {
+            Message.closeLoading();
+            Message.alert(response.data.message)
+
+            this.reloadPerson();
+            this.$router.push('/person/person_add')
+          })
+          .catch(error => {
+            Message.closeLoading();
+          });
+      },
+      onClickCropper() {
+        let canvas = this.cropper.getCroppedCanvas({
+          width: 480,
+          height: 480,
+          minWidth: 240,
+          minHeight: 240,
+          maxWidth: 480,
+          maxHeight: 480,
+          fillColor: '#000',
+          imageSmoothingEnabled: false,//如果图像被设置为平滑(true，默认)
+          imageSmoothingQuality: 'high'//设置图像的质量
         });
+
+        let fileSize = this.file.raw.size / 1024;
+        let quality;
+        if (fileSize > 2048) quality = 0.6;
+        else if (fileSize > 1024 && fileSize < 2048) quality = 0.7;
+        else if (fileSize > 65 && fileSize < 1024) quality = 0.75;
+        else quality = 0.9;
+
+        let base64url = canvas.toDataURL('image/jpeg', quality);
+        this.$refs.upload.uploadFiles[0] = this.file;
+        this.uploadBlob = this.dataURLtoBlob(base64url);//生成base64格式的blob
+        this.visible = false;
+        this.imageUrl = base64url;
+      },
+      opened() {
+        if (this.replace) {
+          this.cropper.replace(URL.createObjectURL(this.file.raw))
+        } else {
+          const img = document.getElementsByClassName('cropper-container')[0].children[0];
+          img.src = URL.createObjectURL(this.file.raw);
+          this.cropper = new Cropper(img, {
+            aspectRatio: 1,
+            viewMode: 0,
+            preview: ".cropper-preview"
+          });
+
+          this.replace = true;
+        }
+      },
+      closed() {
+        this.visible = false;
+        this.file = '';
+      },
+      dataURLtoBlob(dataurl) {
+        let arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+          bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+        while (n--) {
+          u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new Blob([u8arr], {type: mime});
       }
     }
   }
@@ -175,5 +237,17 @@
     width: 178px;
     height: 178px;
     display: block;
+  }
+
+  .cropper-container {
+    width: 100%;
+  }
+
+  .cropper-preview {
+    margin-left: 5px;
+    width: 100%;
+    height: 200px;
+    background-color: black;
+    overflow: hidden;
   }
 </style>

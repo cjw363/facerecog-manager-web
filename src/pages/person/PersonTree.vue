@@ -36,7 +36,7 @@
       onNodeClick(data) {
         if (data.person_id !== -1) {
           this.$router.push({
-            path: '/person/detail',
+            path: '/person/person_detail',
             query: {
               person_id: data.person_id
             },

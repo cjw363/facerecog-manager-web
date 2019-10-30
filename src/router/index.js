@@ -30,6 +30,7 @@ export default new Router({
       route('/person/person','/person/Person','Person',[
         route('/person/person_tbl','/person/PersonTbl','PersonTbl'),
         route('/person/person_add','/person/PersonAdd','PersonAdd'),
+        route('/person/person_detail','/person/PersonDetail','PersonDetail'),
       ]),
     ])
   ]

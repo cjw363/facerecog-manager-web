@@ -78,21 +78,22 @@
       </div>
     </template>
 
-    <DialogChangeGrant/>
+    <DialogPersonList :device="device"/>
   </div>
 </template>
 
 <script>
-  import DialogChangeGrant from '../dialog/DialogChangeGrant'
+  import DialogPersonList from '../dialog/DialogPersonList'
 
   export default {
     name: "DeviceGrantPerson",
     components: {
-      DialogChangeGrant
+      DialogPersonList
     },
     props: {
       device: {
         device_sn: '',
+        device_id: '',
         group_list: ''
       }
     },
@@ -145,7 +146,7 @@
         })
       },
       dialogPerson() {
-        this.$store.commit('device/changeDialogDeviceListVs')
+        this.$store.commit('device/changeDialogAddPersonVs')
       },
       banGrantPerson() {
       },
@@ -162,12 +163,12 @@
     },
     created() {
       this.get()
-      this.$store.commit('device/setDialogDeviceListVs', false)
+      this.$store.commit('device/setDialogAddPersonVs', false)
     },
     watch: {
       "device": function () {
         this.get()
-        this.$store.commit('device/setDialogDeviceListVs', false)
+        this.$store.commit('device/setDialogAddPersonVs', false)
       }
     }
   }

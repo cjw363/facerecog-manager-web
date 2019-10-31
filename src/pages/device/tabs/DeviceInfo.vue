@@ -83,6 +83,7 @@
           }).then(result => {
             Message.info(result.message)
             this.reloadDevice()
+            this.$router.push("/device/device_tbl")
           })
         })
       }

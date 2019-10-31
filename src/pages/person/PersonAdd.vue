@@ -129,7 +129,6 @@
         formData.append("emp_number", model.emp_number);
         formData.append("file", file);
 
-
         this.$axios.post('/person/add', formData, {
           //添加请求头
           headers: {"Content-Type": "multipart/form-data"},
@@ -172,7 +171,7 @@
 
         let base64url = canvas.toDataURL('image/jpeg', quality);
         this.$refs.upload.uploadFiles[0] = this.file;
-        this.uploadBlob = this.dataURLtoBlob(base64url);//生成base64格式的blob
+        this.uploadBlob = this.$utils.dataURLtoBlob(base64url);//生成base64格式的blob
         this.visible = false;
         this.imageUrl = base64url;
       },
@@ -195,14 +194,6 @@
         this.visible = false;
         this.file = '';
       },
-      dataURLtoBlob(dataurl) {
-        let arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-          bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
-        while (n--) {
-          u8arr[n] = bstr.charCodeAt(n);
-        }
-        return new Blob([u8arr], {type: mime});
-      }
     }
   }
 </script>
@@ -222,32 +213,5 @@
 
   /deep/ .avatar-uploader .el-upload:hover {
     border-color: #409EFF;
-  }
-
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
-
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
-  }
-
-  .cropper-container {
-    width: 100%;
-  }
-
-  .cropper-preview {
-    margin-left: 5px;
-    width: 100%;
-    height: 200px;
-    background-color: black;
-    overflow: hidden;
   }
 </style>

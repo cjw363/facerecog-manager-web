@@ -4,13 +4,13 @@
 
       <el-breadcrumb-item>人员管理</el-breadcrumb-item>
       <el-breadcrumb-item>人员详情</el-breadcrumb-item>
-      <el-breadcrumb-item>{{data.person_name}}</el-breadcrumb-item>
+      <el-breadcrumb-item>{{person.person_name}}</el-breadcrumb-item>
     </el-breadcrumb>
 
     <template>
       <el-tabs type="card" v-model="activeName">
         <el-tab-pane label="基本信息" name="first">
-          <PersonInfo/>
+          <PersonInfo :person="person"/>
         </el-tab-pane>
         <el-tab-pane label="授权设备" name="second">
           <PersonGrantDevice/>
@@ -26,9 +26,30 @@
 
   export default {
     name: "PersonDetail",
+    data() {
+      return {
+        activeName: 'first',
+        person: {},
+      }
+    },
     components:{
       PersonInfo,
       PersonGrantDevice
+    },
+    methods: {
+      get() {
+        this.$post('/person/detail', {
+          person_id: this.$route.query.person_id
+        }).then(result => {
+          this.person = result.data
+        })
+      }
+    },
+    created() {
+      this.get();
+    },
+    watch: {
+      "$route": "get"
     }
 
   }

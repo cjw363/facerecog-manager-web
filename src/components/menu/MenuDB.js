@@ -39,19 +39,19 @@ const menuData = {
           },
           "childs": null
         },
-        {
-          "entity": {
-            "id": 21,
-            "parentMenuId": 2,
-            "name": "Batch-Upload",
-            "icon": "el-icon-picture",
-            "alias": "批量上传",
-            "state": "ENABLE",
-            "value": "/person/person_batch_upload",
-            "type": "LINK",
-          },
-          "childs": null
-        }
+        // {
+        //   "entity": {
+        //     "id": 21,
+        //     "parentMenuId": 2,
+        //     "name": "Batch-Upload",
+        //     "icon": "el-icon-picture",
+        //     "alias": "批量上传",
+        //     "state": "ENABLE",
+        //     "value": "/person/person_batch_upload",
+        //     "type": "LINK",
+        //   },
+        //   "childs": null
+        // }
       ]
     },
     {

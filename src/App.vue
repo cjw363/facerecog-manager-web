@@ -1,11 +1,11 @@
 <template>
-    <router-view/>
+  <router-view/>
 </template>
 
 <script>
-export default {
-  name: 'App'
-}
+  export default {
+    name: 'App'
+  }
 </script>
 
 <style>
@@ -15,11 +15,11 @@ export default {
     margin: 0;
   }
 
-  .el-pagination{
+  .el-pagination {
     margin-top: 10px;
   }
 
-  .el-breadcrumb{
+  .el-breadcrumb {
     margin-bottom: 15px;
   }
 
@@ -38,7 +38,7 @@ export default {
     text-decoration: none;
   }
 
-  .box{
+  .box {
     text-align: center;
   }
 
@@ -73,5 +73,32 @@ export default {
   .el-container::-webkit-scrollbar-track, .el-main::-webkit-scrollbar-track, .el-aside::-webkit-scrollbar-track { /*滚动条里面轨道*/
     border-radius: 12px;
     background: #E1E1E1;
+  }
+
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
+
+  .cropper-container {
+    width: 100%;
+  }
+
+  .cropper-preview {
+    margin-left: 5px;
+    width: 100%;
+    height: 200px;
+    background-color: black;
+    overflow: hidden;
   }
 </style>

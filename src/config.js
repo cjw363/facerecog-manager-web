@@ -15,6 +15,6 @@ Vue.prototype.$utils = utils
 
 
 Vue.filter('formatDate', function (value, formatString) {
-  formatString = formatString || 'YYYY-MM-DD HH:mm';
+  formatString = formatString || 'YYYY-MM-DD HH:mm:ss';
   return moment(value).format(formatString);
 })

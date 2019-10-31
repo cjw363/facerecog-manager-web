@@ -12,7 +12,7 @@
                 :value="item.group_id">
               </el-option>
             </el-select>
-            <el-button type="primary" icon="el-icon-plus" @click="dialogPerson" size="small">添加</el-button>
+            <el-button type="primary" icon="el-icon-plus" @click="openDialogAddPerson" size="small">添加</el-button>
           </div>
 
           <div style="float: right">
@@ -79,16 +79,20 @@
     </template>
 
     <DialogPersonList :device="device"/>
+    <DialogChangeGrant :device="device" ref="refDialogChangeGrant"/>
   </div>
 </template>
 
 <script>
   import DialogPersonList from '../dialog/DialogPersonList'
+  import DialogChangeGrant from '../dialog/DialogChangeGrant'
+  import Message from '@/components/messages';
 
   export default {
     name: "DeviceGrantPerson",
     components: {
-      DialogPersonList
+      DialogPersonList,
+      DialogChangeGrant
     },
     props: {
       device: {
@@ -104,13 +108,6 @@
         pageSizes1: [5, 10, 20],
         pageSize1: 10,
         tableTotal: 0,
-        dialogModel: {
-          radio1: '',
-          radio2: '',
-          pass_number: '',
-          dateValue: '',
-        },
-        grant: '',
         keyword: '',
         selectGroupModel: ''
       }
@@ -145,30 +142,43 @@
           device_sn: this.device.device_sn
         })
       },
-      dialogPerson() {
+      openDialogAddPerson() {
         this.$store.commit('device/changeDialogAddPersonVs')
       },
-      banGrantPerson() {
+      openDialogChangeGrant(data) {
+        this.$store.commit('device/changeDialogGrantPersonVs')
+        this.$refs.refDialogChangeGrant.initData(data)
       },
-      onChangeRadio() {
+      banGrantPerson(scope) {
+        this.$post('/grant/ban', {
+          device_ids: this.device.device_id,
+          person_ids: scope.row.person_id
+        }).then(result => {
+          Message.success(result.message)
+          this.$utils.arrayRemoveObj(this.tableData1, scope.row)
+          this.tableTotal--
+        })
       },
-      openDialogChangeGrant() {
-      },
-      opened() {
-      },
-      changePersonGrant() {
-      },
-      dialog() {
-      },
+      changeTableData(data) {
+        this.tableData1.find(person => {
+          if (data.grant_id === person.grant_id) {
+            person.pass_number = data.pass_number;
+            person.pass_start_time = data.pass_start_time;
+            person.pass_end_time = data.pass_end_time;
+          }
+        });
+      }
     },
     created() {
       this.get()
       this.$store.commit('device/setDialogAddPersonVs', false)
+      this.$store.commit('device/setDialogGrantPersonVs', false)
     },
     watch: {
       "device": function () {
         this.get()
         this.$store.commit('device/setDialogAddPersonVs', false)
+        this.$store.commit('device/setDialogGrantPersonVs', false)
       }
     }
   }

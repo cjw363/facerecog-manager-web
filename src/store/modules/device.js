@@ -1,7 +1,8 @@
 // initial state
 const state = {
   deviceList: [],
-  dialogAddPersonVisible: ''
+  dialogAddPersonVisible: '',
+  dialogGrantPersonVisible: ''
 }
 
 // getters
@@ -11,7 +12,10 @@ const getters = {
   },
   getDialogAddPersonVs() {
     return state.dialogAddPersonVisible;
-  }
+  },
+  getDialogGrantPersonVs() {
+    return state.dialogGrantPersonVisible;
+  },
 }
 
 // mutations
@@ -22,8 +26,14 @@ const mutations = {
   setDialogAddPersonVs(state, visible) {
     state.dialogAddPersonVisible = visible
   },
-  changeDialogAddPersonVs(state){
+  changeDialogAddPersonVs(state) {
     state.dialogAddPersonVisible = !state.dialogAddPersonVisible
+  },
+  setDialogGrantPersonVs(state, visible) {
+    state.dialogGrantPersonVisible = visible
+  },
+  changeDialogGrantPersonVs(state) {
+    state.dialogGrantPersonVisible = !state.dialogGrantPersonVisible
   }
 }
 

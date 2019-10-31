@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form label-width="150px" :model="personModel" ref="perBaseInfoForm" :rules="rules">
+    <el-form label-width="150px" v-model="personModel" ref="perBaseInfoForm" :rules="rules">
       <el-form-item label="人员ID">
         <span>{{person.person_id}}</span>
       </el-form-item>

@@ -17,7 +17,7 @@
                  :default-active="this.$router.path"
                  class="el-menu-vertical-demo"
                  router>
-          <NavMenu :menuData="menuData.childs"></NavMenu>
+          <NavMenu :menuData="menuData.childs" :showEnableOnly="true"></NavMenu>
         </el-menu>
       </el-aside>
       <el-main>

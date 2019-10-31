@@ -37,6 +37,11 @@
         reloadPerson: this.reload
       }
     },
+    watch: {
+      "$route": function () {
+        this.$router.push("/person/person_tbl")
+      }
+    }
   }
 </script>
 

@@ -36,6 +36,11 @@
         await this.$nextTick()
         this.reFresh = true
       }
+    },
+    watch: {
+      "$route": function () {
+        this.$router.push("/device/device_tbl")
+      }
     }
   }
 </script>

@@ -1,4 +1,5 @@
 import moment from 'moment'
+
 const u = {
   removeArrMinusOne(arr) {
     for (let i = 0; i < arr.length; i++) {
@@ -42,7 +43,7 @@ const u = {
   dateToStamp(stringTime) {
     return Date.parse(new Date(stringTime)) / 1000;
   },
-  formatDate(value){
+  formatDate(value) {
     return moment(value).format('YYYY-MM-DD HH:mm:ss');
   },
   dataURLtoBlob(dataurl) {
@@ -52,6 +53,13 @@ const u = {
       u8arr[n] = bstr.charCodeAt(n);
     }
     return new Blob([u8arr], {type: mime});
+  },
+  uuid() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      let r = Math.random() * 16 | 0,
+        v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    })
   }
 }
 

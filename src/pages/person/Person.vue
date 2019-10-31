@@ -1,5 +1,5 @@
 <template>
-  <el-container  v-if="reFresh">
+  <el-container v-if="reFresh">
     <el-aside width="250px">
       <PersonTree/>
     </el-aside>
@@ -25,7 +25,7 @@
         reFresh: true
       }
     },
-    methods:{
+    methods: {
       async reload() {
         this.reFresh = false
         await this.$nextTick()
@@ -39,7 +39,8 @@
     },
     watch: {
       "$route": function () {
-        this.$router.push("/person/person_tbl")
+        if (this.$route.path === '/person/person')
+          this.$router.push("/person/person_tbl")
       }
     }
   }

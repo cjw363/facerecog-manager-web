@@ -39,6 +39,7 @@
     },
     watch: {
       "$route": function () {
+        if (this.$route.path === '/device/device')
         this.$router.push("/device/device_tbl")
       }
     }

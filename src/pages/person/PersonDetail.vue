@@ -13,7 +13,7 @@
           <PersonInfo :person="person"/>
         </el-tab-pane>
         <el-tab-pane label="授权设备" name="second">
-          <PersonGrantDevice/>
+          <PersonGrantDevice :person="person"/>
         </el-tab-pane>
       </el-tabs>
     </template>

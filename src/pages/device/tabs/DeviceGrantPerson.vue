@@ -78,20 +78,20 @@
       </div>
     </template>
 
-    <DialogPersonList :device="device"/>
+    <DialogAddPerson :device="device"/>
     <DialogChangeGrant :device="device" ref="refDialogChangeGrant"/>
   </div>
 </template>
 
 <script>
-  import DialogPersonList from '../dialog/DialogPersonList'
+  import DialogAddPerson from '../dialog/DialogAddPerson'
   import DialogChangeGrant from '../dialog/DialogChangeGrant'
   import Message from '@/components/messages';
 
   export default {
     name: "DeviceGrantPerson",
     components: {
-      DialogPersonList,
+      DialogAddPerson,
       DialogChangeGrant
     },
     props: {

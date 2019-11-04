@@ -8,7 +8,7 @@
       show-checkbox
       ref="tree"></el-tree>
     <div slot="footer" class="dialog-footer">
-      <el-button @click="$store.commit('device/changeDialogAddPersonVs')">取消</el-button>
+      <el-button @click="visible=false">取消</el-button>
       <el-button type="primary" @click="onClickAddGrantPerson">添加</el-button>
     </div>
   </el-dialog>
@@ -36,6 +36,7 @@
           children: 'children',
           label: 'person_name'
         },
+        visible: false
       }
     },
     methods: {
@@ -47,42 +48,35 @@
         let pass_start_time = this.$utils.stampToDate(9999999999);
         let pass_end_time = this.$utils.stampToDate(9999999999);
 
-        this.$post('/grant/add',{
+        this.$post('/grant/add', {
           person_ids: person_ids,
           device_ids: this.device.device_id,
           pass_number: pass_number,
           pass_start_time: pass_start_time,
           pass_end_time: pass_end_time
-        }).then(result=>{
+        }).then(result => {
           Message.success(result.message)
-          this.$store.commit('device/changeDialogAddPersonVs')
+          this.visible = false
           this.$parent.get();
         })
-      }
-    },
-    computed: {
-      'visible': {
-        get(){
-          return this.$store.getters['device/getDialogAddPersonVs']
-        },
-        set(val){
-          this.$store.commit('device/setDialogAddPersonVs', val)
-        }
-      }
-    },
-    created(){
-      this.$get('/person/group_person_list', {
-        device_id:this.device.device_id
-      }).then(result => {
-        result.data.list.forEach((item,i,arr)=>{
-          this.items[i]= {
-            person_id: -i,
-            person_name: item.group_name,
-            children: item.person_list
-          }
+      },
+      openDialogAddPerson() {
+        this.$get('/person/group_person_list', {
+          device_sn: this.device.device_sn
+        }).then(result => {
+          let array = [];
+          result.data.list.forEach((item, i, arr) => {
+            array[i] = {
+              person_id: -i,
+              person_name: item.group_name,
+              children: item.person_list
+            }
+          })
+          this.items = array
+          this.visible = true
         })
-      })
-    }
+      }
+    },
   }
 </script>
 

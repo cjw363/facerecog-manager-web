@@ -43,35 +43,35 @@
         let pass_start_time = this.$utils.stampToDate(9999999999);
         let pass_end_time = this.$utils.stampToDate(9999999999);
 
-        this.$post('/grant/add',{
+        this.$post('/grant/add', {
           person_ids: this.person.person_id,
           device_ids: device_ids,
           pass_number: pass_number,
           pass_start_time: pass_start_time,
           pass_end_time: pass_end_time
-        }).then(result=>{
+        }).then(result => {
           this.$message.success(result.message)
-          this.changeDialogAddDeviceVs()
+          this.visible = false
           this.$parent.get();
         })
       },
-      changeDialogAddDeviceVs() {
-        this.visible = !this.visible
+      openDialogAddDevice() {
+        this.$get('/device/group_device_list', {
+          person_id: this.person.person_id,
+        }).then(result => {
+          let array = []
+          result.data.list.forEach((item, i, arr) => {
+            array[i] = {
+              device_id: -i,
+              device_name: item.group_name,
+              children: item.device_list
+            }
+          })
+          this.items = array
+          this.visible = true
+        })
       }
     },
-    created() {
-      this.$get('/device/group_device_list', {
-        person_id: this.person.person_id,
-      }).then(result => {
-        result.data.list.forEach((item, i, arr) => {
-          this.items[i] = {
-            device_id: -i,
-            device_name: item.group_name,
-            children: item.device_list
-          }
-        })
-      })
-    }
   }
 </script>
 

@@ -60,6 +60,7 @@
           dateValue: '',
         },
         grant: '',
+        visible: false
       }
     },
     methods: {
@@ -118,7 +119,7 @@
         };
         this.$post('/grant/add', data).then(result => {
           Message.success(result.message)
-          this.$store.commit('device/changeDialogGrantPersonVs')
+          this.visible = false
 
           this.$parent.changeTableData(data)
         })
@@ -139,16 +140,9 @@
         }
       }
     },
-    computed: {
-      'visible': {
-        get() {
-          return this.$store.getters['device/getDialogGrantPersonVs']
-        },
-        set(val) {
-          this.$store.commit('device/setDialogGrantPersonVs', val)
-        }
-      }
-    },
+    changeDialogGrantPersonVs() {
+      this.visible = !this.visible
+    }
   }
 </script>
 

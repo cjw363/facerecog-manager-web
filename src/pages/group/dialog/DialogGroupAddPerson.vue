@@ -44,25 +44,19 @@
           group_id: this.group.group_id
         }).then(result => {
           this.$message.success(result.message)
-          this.changeDialogGroupAddPersonVs()
+          this.visible = false
 
           this.$parent.get()
         })
       },
-      changeDialogGroupAddPersonVs() {
-        this.visible = !this.visible
-        if (this.visible) this.get()
-      },
-      get() {
+      openDialogGroupAddPerson() {
         this.$get('/person/list_group_unselected', {
           group_id: this.group.group_id
         }).then(result => {
           this.items[0].children = result.data
+          this.visible = true
         })
       }
-    },
-    created() {
-      this.get();
     }
   }
 </script>

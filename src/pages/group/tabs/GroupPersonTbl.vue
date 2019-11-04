@@ -70,7 +70,7 @@
     },
     methods: {
       openDialogAddPerson() {
-        this.$refs.refDialogGroupAddPerson.changeDialogGroupAddPersonVs()
+        this.$refs.refDialogGroupAddPerson.openDialogGroupAddPerson()
       },
       deleteGroupPerson(person) {
         this.$post('/group/delete_person',{

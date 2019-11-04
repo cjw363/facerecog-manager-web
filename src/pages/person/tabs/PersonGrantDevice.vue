@@ -139,11 +139,11 @@
         })
       },
       openDialogAddDevice() {
-        this.$refs.refDialogAddDevice.changeDialogAddDeviceVs()
+        this.$refs.refDialogAddDevice.openDialogAddDevice()
       },
       openDialogUpdateGrant(data) {
-        this.$refs.refDialogChangeGrant.changeDialogChangeGrantVs()
         this.$refs.refDialogChangeGrant.initData(data)
+        this.$refs.refDialogChangeGrant.changeDialogChangeGrantVs()
       },
       banGrantDevice(scope) {
         this.$post('/grant/ban', {

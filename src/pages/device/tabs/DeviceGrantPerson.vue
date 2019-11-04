@@ -78,7 +78,7 @@
       </div>
     </template>
 
-    <DialogAddPerson :device="device"/>
+    <DialogAddPerson :device="device" ref="refDialogAddPerson"/>
     <DialogChangeGrant :device="device" ref="refDialogChangeGrant"/>
   </div>
 </template>
@@ -143,11 +143,11 @@
         })
       },
       openDialogAddPerson() {
-        this.$store.commit('device/changeDialogAddPersonVs')
+        this.$refs.refDialogAddPerson.openDialogAddPerson()
       },
       openDialogChangeGrant(data) {
-        this.$store.commit('device/changeDialogGrantPersonVs')
         this.$refs.refDialogChangeGrant.initData(data)
+        this.$refs.refDialogChangeGrant.changeDialogGrantPersonVs()
       },
       banGrantPerson(scope) {
         this.$post('/grant/ban', {
@@ -171,14 +171,10 @@
     },
     created() {
       this.get()
-      this.$store.commit('device/setDialogAddPersonVs', false)
-      this.$store.commit('device/setDialogGrantPersonVs', false)
     },
     watch: {
       "device": function () {
         this.get()
-        this.$store.commit('device/setDialogAddPersonVs', false)
-        this.$store.commit('device/setDialogGrantPersonVs', false)
       }
     }
   }

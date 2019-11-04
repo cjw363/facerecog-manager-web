@@ -80,16 +80,19 @@
     </template>
 
     <DialogAddDevice :person="person" ref="refDialogAddDevice"/>
+    <DialogChangeGrant :person="person" ref="refDialogChangeGrant"/>
   </div>
 </template>
 
 <script>
   import DialogAddDevice from '../dialog/DialogAddDevice'
+  import DialogChangeGrant from '../dialog/DialogChangeGrant'
 
   export default {
     name: "PersonGrantDevice",
     components: {
-      DialogAddDevice
+      DialogAddDevice,
+      DialogChangeGrant
     },
     props: {
       person: {}
@@ -136,13 +139,30 @@
         })
       },
       openDialogAddDevice() {
-        this.$refs.refDialogAddDevice.changeDialogAddDevice()
+        this.$refs.refDialogAddDevice.changeDialogAddDeviceVs()
       },
-      openDialogUpdateGrant() {
-
+      openDialogUpdateGrant(data) {
+        this.$refs.refDialogChangeGrant.changeDialogChangeGrantVs()
+        this.$refs.refDialogChangeGrant.initData(data)
       },
-      banGrantDevice() {
-
+      banGrantDevice(scope) {
+        this.$post('/grant/ban', {
+          device_ids: scope.row.device_id,
+          person_ids: this.person.person_id
+        }).then(result => {
+          this.$message.success(result.message)
+          this.$utils.arrayRemoveObj(this.tableData, scope.row)
+          this.tableTotal--
+        })
+      },
+      changeTableData(data) {
+        this.tableData.find(device => {
+          if (data.grant_id === device.grant_id) {
+            device.pass_number = data.pass_number;
+            device.pass_start_time = data.pass_start_time;
+            device.pass_end_time = data.pass_end_time;
+          }
+        });
       }
     },
     created() {

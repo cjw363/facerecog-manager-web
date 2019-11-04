@@ -36,9 +36,26 @@
     },
     methods: {
       onClickAddGrantDevice() {
+        let device_ids = this.$refs.tree.getCheckedKeys();
+        device_ids = this.$utils.removeArrMinusOne(device_ids).toString();
 
+        let pass_number = 9999999999;
+        let pass_start_time = this.$utils.stampToDate(9999999999);
+        let pass_end_time = this.$utils.stampToDate(9999999999);
+
+        this.$post('/grant/add',{
+          person_ids: this.person.person_id,
+          device_ids: device_ids,
+          pass_number: pass_number,
+          pass_start_time: pass_start_time,
+          pass_end_time: pass_end_time
+        }).then(result=>{
+          this.$message.success(result.message)
+          this.changeDialogAddDeviceVs()
+          this.$parent.get();
+        })
       },
-      changeDialogAddDevice() {
+      changeDialogAddDeviceVs() {
         this.visible = !this.visible
       }
     },

@@ -47,7 +47,7 @@
         let pass_start_time = this.$utils.stampToDate(9999999999);
         let pass_end_time = this.$utils.stampToDate(9999999999);
 
-        this.$get('/grant/add',{
+        this.$post('/grant/add',{
           person_ids: person_ids,
           device_ids: this.device.device_id,
           pass_number: pass_number,

@@ -46,10 +46,7 @@
   export default {
     name: "DialogChangeGrant",
     props: {
-      device: {
-        device_sn: '',
-        device_id: '',
-      }
+      person: {}
     },
     data() {
       return {
@@ -60,6 +57,7 @@
           dateValue: '',
         },
         grant: '',
+        visible: false
       }
     },
     methods: {
@@ -109,8 +107,8 @@
         }
 
         let data = {
-          person_ids: this.grant.person_id,
-          device_ids: this.device.device_id,
+          person_ids: this.person.person_id,
+          device_ids: this.grant.device_id,
           pass_number: this.dialogModel.pass_number,
           pass_start_time: this.dialogModel.dateValue[0],
           pass_end_time: this.dialogModel.dateValue[1],
@@ -118,7 +116,7 @@
         };
         this.$post('/grant/add', data).then(result => {
           Message.success(result.message)
-          this.$store.commit('device/changeDialogGrantPersonVs')
+          this.changeDialogChangeGrantVs()
 
           this.$parent.changeTableData(data)
         })
@@ -137,16 +135,9 @@
         } else {
           this.dialogModel.radio2 = '3';
         }
-      }
-    },
-    computed: {
-      'visible': {
-        get() {
-          return this.$store.getters['device/getDialogGrantPersonVs']
-        },
-        set(val) {
-          this.$store.commit('device/setDialogGrantPersonVs', val)
-        }
+      },
+      changeDialogChangeGrantVs() {
+        this.visible = !this.visible
       }
     },
   }

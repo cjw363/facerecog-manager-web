@@ -1,7 +1,7 @@
 <template>
   <el-container v-if="reFresh">
     <el-aside width="250px">
-      <DeviceTree/>
+      <GroupTree/>
     </el-aside>
     <el-main>
       <router-view/>
@@ -10,20 +10,15 @@
 </template>
 
 <script>
-  import DeviceTree from './DeviceTree'
+  import GroupTree from './GroupTree'
 
   export default {
-    name: "Device",
+    name: "Group",
     components: {
-      DeviceTree
+      GroupTree
     },
     created() {
-      this.$router.push("/device/device_tbl")
-    },
-    provide() {
-      return {
-        reloadDevice: this.reload
-      }
+      this.$router.push("/group/group_tbl")
     },
     data() {
       return {
@@ -37,10 +32,15 @@
         this.reFresh = true
       }
     },
+    provide() {
+      return {
+        reloadGroup: this.reload
+      }
+    },
     watch: {
       "$route": function () {
-        if (this.$route.path === '/device/device')
-        this.$router.push("/device/device_tbl")
+        if (this.$route.path === '/group/group')
+          this.$router.push("/group/group_tbl")
       }
     }
   }
@@ -54,5 +54,4 @@
   .el-main {
     padding: 20px;
   }
-
 </style>

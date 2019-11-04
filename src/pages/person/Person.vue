@@ -47,8 +47,7 @@
 </script>
 
 <style scoped>
-  .el-tree {
-    height: 100%;
+  .el-aside {
     border-right: solid 1px #e6e6e6;
   }
 

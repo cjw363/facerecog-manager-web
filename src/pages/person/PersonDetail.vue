@@ -51,7 +51,6 @@
     watch: {
       "$route": "get"
     }
-
   }
 </script>
 

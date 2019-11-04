@@ -71,7 +71,9 @@
       }
     },
     created(){
-      this.$get('/person/group_person_list', {}).then(result => {
+      this.$get('/person/group_person_list', {
+        device_id:this.device.device_id
+      }).then(result => {
         result.data.list.forEach((item,i,arr)=>{
           this.items[i]= {
             person_id: -i,

@@ -32,6 +32,11 @@ export default new Router({
         route('/person/person_add','/person/PersonAdd','PersonAdd'),
         route('/person/person_detail','/person/PersonDetail','PersonDetail'),
       ]),
+      //group
+      route('/group/group','/group/Group','Group',[
+        route('/group/group_tbl','/group/GroupTbl','GroupTbl'),
+        route('/group/group_detail','/group/GroupDetail','GroupDetail'),
+      ])
     ])
   ]
 })

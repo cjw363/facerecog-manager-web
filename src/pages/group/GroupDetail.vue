@@ -15,6 +15,7 @@
           <GroupPersonTbl :group="group"/>
         </el-tab-pane>
         <el-tab-pane label="设备列表" name="third">
+          <GroupDeviceTbl :group="group"/>
         </el-tab-pane>
         <el-tab-pane label="分配权限" name="fourth">
         </el-tab-pane>
@@ -26,12 +27,14 @@
 <script>
   import GroupInfo from './tabs/GroupInfo'
   import GroupPersonTbl from './tabs/GroupPersonTbl'
+  import GroupDeviceTbl from './tabs/GroupDeviceTbl'
 
   export default {
     name: "GroupDetail",
     components: {
       GroupInfo,
-      GroupPersonTbl
+      GroupPersonTbl,
+      GroupDeviceTbl
     },
     data() {
       return {

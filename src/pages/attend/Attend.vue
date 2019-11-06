@@ -77,10 +77,10 @@
         </el-form-item>
       </el-form>
     </div>
-    <div style="float:left; width:calc(100% - 380px);min-width:730px;margin-left: 20px;">
+    <div style="float:left; width:calc(100% - 380px);margin-left: 20px;">
       <template>
         <el-table ref="multipleTable" :data="tableData" style="width: 100%">
-          <el-table-column label="日期">
+          <el-table-column label="日期" width="100px">
             <template slot-scope="scope">
               <span>{{ scope.row.record_time|formatDate }}</span>
             </template>
@@ -89,7 +89,7 @@
           </el-table-column>
           <el-table-column prop="device_name" label="设备名">
           </el-table-column>
-          <el-table-column label="上班打卡时间">
+          <el-table-column label="上班打卡时间" width="100px">
             <template slot-scope="scope">
               <span>{{ scope.row.am_punch_time|formatDate }}</span>
             </template>
@@ -110,7 +110,7 @@
               </el-tag>
             </template>
           </el-table-column>
-          <el-table-column label="下班打卡时间">
+          <el-table-column label="下班打卡时间" width="100px">
             <template slot-scope="scope">
               <span>{{ scope.row.pm_punch_time|formatDate }}</span>
             </template>
@@ -202,7 +202,7 @@
       },
       exportExcel() {
         let model = this.$refs.form.model;
-        window.open("${pageContext.request.contextPath}/attend/export?" + this.$qs.stringify({
+        window.open(this.$axios.defaults.baseURL + "/attend/export?" + this.$qs.stringify({
           date_start: model.date_range[0],
           date_end: model.date_range[1],
           am_attend_time: model.am_attend_time,

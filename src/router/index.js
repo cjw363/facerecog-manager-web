@@ -38,7 +38,9 @@ export default new Router({
         route('/group/group_detail', '/group/GroupDetail', 'GroupDetail'),
       ]),
       //grant
-      route('/grant/grant', '/grant/Grant', 'Grant', [])
+      route('/grant/grant', '/grant/Grant', 'Grant', []),
+      //record
+      route('/record/record', '/record/Record', 'Record', []),
     ])
   ]
 })

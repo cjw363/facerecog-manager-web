@@ -106,13 +106,16 @@
         tableTotal: 0,
         selectGroupModel: '',
         keyword: '',
+        group_id: ''
       }
     },
     methods: {
       get(data = {
         pageNum: this.currentPage,
         pageSize: this.pageSize,
-        person_id: this.person.person_id
+        person_id: this.person.person_id,
+        group_id: this.group_id,
+        keyword: this.keyword
       }) {
         this.$get('/person/access_device_list', data).then(result => {
           this.tableData = result.data.list;
@@ -123,11 +126,13 @@
         this.get()
       },
       changeSelectGroup(value) {
+        this.group_id = value
         this.get({
           group_id: value,
           pageNum: 1,
           pageSize: this.pageSize,
-          person_id: this.person.person_id
+          person_id: this.person.person_id,
+          keyword: this.keyword
         })
       },
       searchGrantDeviceList() {
@@ -135,6 +140,7 @@
           pageNum: 1,
           pageSize: this.pageSize,
           keyword: this.keyword,
+          group_id: this.group_id,
           person_id: this.person.person_id
         })
       },
@@ -166,10 +172,18 @@
       }
     },
     created() {
+      //清除之前的数据
+      this.group_id = ''
+      this.selectGroupModel = ''
+      this.keyword = ''
       this.get()
     },
     watch: {
       "person": function () {
+        //清除之前的数据
+        this.group_id = ''
+        this.selectGroupModel = ''
+        this.keyword = ''
         this.get()
       }
     }

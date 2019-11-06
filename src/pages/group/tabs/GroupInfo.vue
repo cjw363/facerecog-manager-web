@@ -67,5 +67,11 @@
 </script>
 
 <style scoped>
+  .el-form-item .el-input {
+    width: 400px;
+  }
 
+  /deep/ .el-input--suffix .el-input__inner {
+    width: 400px;
+  }
 </style>

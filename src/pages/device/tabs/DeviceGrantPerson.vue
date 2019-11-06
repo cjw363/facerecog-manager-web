@@ -98,7 +98,7 @@
       device: {
         device_sn: '',
         device_id: '',
-        group_list: ''
+        group_list: '',
       }
     },
     data() {
@@ -109,14 +109,17 @@
         pageSize1: 10,
         tableTotal: 0,
         keyword: '',
-        selectGroupModel: ''
+        selectGroupModel: '',
+        group_id: ''
       }
     },
     methods: {
       get(data = {
         pageNum: this.currentPage1,
         pageSize: this.pageSize1,
-        device_sn: this.device.device_sn
+        device_sn: this.device.device_sn,
+        group_id: this.group_id,
+        keyword: this.keyword
       }) {
         this.$get('/device/grant_person_list', data).then(result => {
           this.tableData1 = result.data.list;
@@ -127,19 +130,22 @@
         this.get()
       },
       changeSelectGroup(value) {
+        this.group_id = value
         this.get({
           group_id: value,
           pageNum: 1,
           pageSize: this.pageSize1,
-          device_sn: this.device.device_sn
+          device_sn: this.device.device_sn,
+          keyword: this.keyword
         })
       },
       selectGrantPersonList() {
         this.get({
           pageNum: 1,
+          group_id: this.group_id,
           pageSize: this.pageSize1,
-          keyword: this.keyword,
-          device_sn: this.device.device_sn
+          device_sn: this.device.device_sn,
+          keyword: this.keyword
         })
       },
       openDialogAddPerson() {
@@ -170,10 +176,18 @@
       }
     },
     created() {
+      //清除之前的数据
+      this.group_id=''
+      this.selectGroupModel=''
+      this.keyword=''
       this.get()
     },
     watch: {
       "device": function () {
+        //清除之前的数据
+        this.group_id=''
+        this.selectGroupModel=''
+        this.keyword=''
         this.get()
       }
     }

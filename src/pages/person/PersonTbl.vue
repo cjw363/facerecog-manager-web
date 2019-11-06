@@ -72,7 +72,8 @@
     methods: {
       get(data = {
         pageNum: this.currentPage,
-        pageSize: this.pageSize
+        pageSize: this.pageSize,
+        keyword: this.keyword
       }) {
         this.$get('/person/list_base64', data).then(result => {
           this.tableData = result.data.list;

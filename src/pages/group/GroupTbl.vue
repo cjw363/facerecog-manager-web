@@ -67,7 +67,8 @@
     methods: {
       get(data = {
         pageNum: this.currentPage,
-        pageSize: this.pageSize
+        pageSize: this.pageSize,
+        keyword: this.keyword
       }) {
         this.$get('/group/list', data).then(result => {
           this.tableData = result.data.list;

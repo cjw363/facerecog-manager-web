@@ -80,6 +80,8 @@
           this.$message.success(result.message)
           this.$utils.arrayRemoveObj(this.tableData1, person)
           this.total1--
+
+          this.updateGroupGrantData()
         })
       },
       get(data = {
@@ -95,6 +97,9 @@
       handleChange1() {
         this.get()
       },
+      updateGroupGrantData(){
+        this.$emit('updateGroupGrantData')
+      }
     },
     created() {
       this.get()

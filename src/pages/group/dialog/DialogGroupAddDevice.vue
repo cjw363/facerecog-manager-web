@@ -47,6 +47,7 @@
           this.visible = false
 
           this.$parent.get()
+          this.$parent.updateGroupGrantData()
         })
       },
       openDialogGroupAddDevice(){

@@ -85,6 +85,8 @@
           this.$message.success(result.message)
           this.$utils.arrayRemoveObj(this.tableData2, device)
           this.total2--
+
+          this.updateGroupGrantData()
         })
       },
       handleChange2() {
@@ -100,9 +102,9 @@
           this.total2 = result.data.total;
         })
       },
-    },
-    created() {
-      this.get()
+      updateGroupGrantData(){
+        this.$emit('updateGroupGrantData')
+      }
     },
     watch: {
       "group": function () {

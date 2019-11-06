@@ -53,7 +53,7 @@ const m = {
         resolve()
       })
         .catch(() => {
-          reject()
+          // reject()
         });
     })
   },

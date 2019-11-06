@@ -88,6 +88,8 @@
 </template>
 
 <script>
+  import Message from '@/components/messages'
+
   export default {
     name: "Record",
     data() {
@@ -121,16 +123,55 @@
         this.multipleSelection = val
       },
       deleteRecords() {
+        if (this.multipleSelection.length === 0) {
+          this.$message.warning('请勾选待删除记录')
+          return;
+        }
 
+        let arr = []
+        this.multipleSelection.forEach(item => arr.push(item.record_id))
+        let record_ids = arr.join(',');
+
+        Message.confirm('确定删除勾选记录').then(() => {
+          this.$post('/record/deleteLists', {
+            record_ids: record_ids
+          }).then(result => {
+            this.$message.success(result.message)
+            this.get()
+          })
+        })
       },
       clearRecord() {
-
+        Message.confirm('警告! 该操作将删除所有记录，是否继续？').then(() => {
+          this.$post('/record/clear', {
+            device_id: this.device_id
+          }).then(result => {
+            this.$message.success(result.message)
+            this.tableData = []
+            this.total = 0
+          })
+        })
       },
       deleteRecordById(scope) {
-
+        Message.confirm('确定删除该记录').then(() => {
+          this.$post('/record/delete', {
+            record_id: scope.row.record_id
+          }).then(result => {
+            this.$message.success(result.message)
+            this.$utils.arrayRemoveObj(this.tableData, scope.row)
+            this.total--
+          })
+        })
       },
       changeSelectDevice(value) {
         this.device_id = value
+
+        this.get({
+          pageNum: 1,
+          pageSize: this.pageSize,
+          device_id: this.device_id,
+          keyword: this.keyword
+        })
       },
       getDeviceList() {
         this.$get('/device/list').then(result => {

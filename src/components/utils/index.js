@@ -28,11 +28,13 @@ const u = {
     }
   },
   //求数据差集
-  arrayIntersect(arr1, arr2) {
+  arrayIntersect(a, b) {
+    let arr1 = a.concat();
+    let arr2 = b.concat();
     let diff = [];
     let tmp = arr2;
 
-    arr1.forEach(function(val1, i){
+    arr1.forEach(function (val1, i) {
       if (arr2.indexOf(val1) < 0) {
         diff.push(val1);
       } else {

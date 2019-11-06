@@ -27,16 +27,18 @@ export default new Router({
         route('/device/device_inact_detail', '/device/DeviceInactDetail', "DeviceInactDetail"),
       ]),
       //person
-      route('/person/person','/person/Person','Person',[
-        route('/person/person_tbl','/person/PersonTbl','PersonTbl'),
-        route('/person/person_add','/person/PersonAdd','PersonAdd'),
-        route('/person/person_detail','/person/PersonDetail','PersonDetail'),
+      route('/person/person', '/person/Person', 'Person', [
+        route('/person/person_tbl', '/person/PersonTbl', 'PersonTbl'),
+        route('/person/person_add', '/person/PersonAdd', 'PersonAdd'),
+        route('/person/person_detail', '/person/PersonDetail', 'PersonDetail'),
       ]),
       //group
-      route('/group/group','/group/Group','Group',[
-        route('/group/group_tbl','/group/GroupTbl','GroupTbl'),
-        route('/group/group_detail','/group/GroupDetail','GroupDetail'),
-      ])
+      route('/group/group', '/group/Group', 'Group', [
+        route('/group/group_tbl', '/group/GroupTbl', 'GroupTbl'),
+        route('/group/group_detail', '/group/GroupDetail', 'GroupDetail'),
+      ]),
+      //grant
+      route('/grant/grant', '/grant/Grant', 'Grant', [])
     ])
   ]
 })

@@ -106,6 +106,9 @@
         this.$emit('updateGroupGrantData')
       }
     },
+    created() {
+      this.get()
+    },
     watch: {
       "group": function () {
         this.get()

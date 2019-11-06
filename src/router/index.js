@@ -41,6 +41,8 @@ export default new Router({
       route('/grant/grant', '/grant/Grant', 'Grant', []),
       //record
       route('/record/record', '/record/Record', 'Record', []),
+      //attend
+      route('/attend/Attend', '/attend/Attend', 'Attend', []),
     ])
   ]
 })

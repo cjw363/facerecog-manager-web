@@ -27,6 +27,21 @@ const u = {
       }
     }
   },
+  //求数据差集
+  arrayIntersect(arr1, arr2) {
+    let diff = [];
+    let tmp = arr2;
+
+    arr1.forEach(function(val1, i){
+      if (arr2.indexOf(val1) < 0) {
+        diff.push(val1);
+      } else {
+        tmp.splice(tmp.indexOf(val1), 1);
+      }
+    });
+
+    return diff.concat(tmp);
+  },
   stampToDate(timestamp) {
     let unixtimestamp = new Date(timestamp * 1000);
     let year = 1900 + unixtimestamp.getYear();

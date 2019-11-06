@@ -62,6 +62,7 @@
         device_list: [],
         value1: [],
         value2: [],
+        value2temp: [],
         props1: {
           label: 'person_name',
           key: 'person_id'
@@ -83,16 +84,86 @@
       filterMethod2(query, item) {
         return item.device_name.indexOf(query) > -1;
       },
-      onChangeRadio() {
+      onChangeRadio(index) {
+        let $input = document.querySelector('.input_pass_number');
+        let $datePicker = document.querySelector('.date_picker_pass_number');
 
+        switch (index) {
+          case '1':
+            $input.style.display = "inline-flex";
+            break;
+          case '2':
+            $input.style.display = "none";
+            break;
+          case '3':
+            $datePicker.style.display = "inline-flex";
+            break;
+          case '4':
+            $datePicker.style.display = "none";
+            break;
+        }
       },
       grantPass() {
+        let person_ids = this.value1.join(',');
+        let device_ids = this.$utils.arrayIntersect(this.value2temp, this.value2).join(',');
+        let pass_number = 9999999999;
+        let pass_start_time = this.$utils.stampToDate(9999999999);
+        let pass_end_time = this.$utils.stampToDate(9999999999);
 
+        if (!person_ids) {
+          this.$message.warning("请添加授权人员");
+          return;
+        }
+        if (!device_ids) {
+          this.$message.warning("请添加授权设备");
+          return;
+        }
+
+        if (this.radio1 === '1') {
+          if (!this.pass_number.trim()) {
+            this.$message.warning("请填写通行次数");
+            return;
+          }
+          pass_number = this.pass_number;
+        }
+        if (this.radio2 === '3') {
+          if (!this.dateValue) {
+            this.$message.warning("请填写通行日期");
+            return;
+          }
+          pass_start_time = this.dateValue[0];
+          pass_end_time = this.dateValue[1];
+        }
+
+        this.$post('/grant/add', {
+          person_ids: person_ids,
+          device_ids: device_ids,
+          pass_number: pass_number,
+          pass_start_time: pass_start_time,
+          pass_end_time: pass_end_time
+        }).then(result => this.$message.success(result.message))
       },
       banPass() {
+        var person_ids = this.value1.join(',');
+        var device_ids = this.$utils.arrayIntersect(this.value2temp, this.value2).join(',');
+        if (!person_ids) {
+          this.$message.warning("请添加授权人员");
+          return;
+        }
+        if (!device_ids) {
+          this.$message.warning("请添加授权设备");
+          return;
+        }
 
+        this.$post('/grant/ban', {
+          person_ids: person_ids,
+          device_ids: device_ids
+        }).then(result => this.$message.success(result.message))
       },
       get() {
+        this.value1 = [];
+        this.value2 = [];
+        this.value2temp = [];
         this.$get('/group/list_device_person_by_group', {
           group_id: this.group.group_id
         }).then(result => {
@@ -100,6 +171,7 @@
           this.device_list = result.data.device_list
 
           this.device_list.forEach((item, i, arr) => this.value2[i] = item.device_id)
+          this.value2temp = this.value2
         })
       },
     },

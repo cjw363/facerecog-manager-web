@@ -2,58 +2,55 @@
   <el-container>
     <el-header>人脸识别系统</el-header>
     <el-main>
-      <el-form class="demo-ruleForm login-container" :model="loginModel" :rules="loginRules" ref="loginForm">
-        <p class="title">管理员登录</p>
+      <el-form class="demo-ruleForm register-container" :model="registerModel" :rules="registerRules"
+               ref="registerForm">
+        <p class="title">管理员注册</p>
         <el-form-item prop="name">
-          <el-input v-model="loginModel.name" type="text" autocomplete="off" placeholder="请输入账号"
+          <el-input v-model="registerModel.name" type="text" autocomplete="off" placeholder="请输入账号"
                     clearable></el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input v-model="loginModel.password" type="password" autocomplete="off" placeholder="请输入密码" @keyup.enter.native="onClickLogin('loginForm')"
-                    clearable></el-input>
+          <el-input v-model="registerModel.password" type="password" autocomplete="off"
+                    placeholder="请输入密码" clearable id="password"></el-input>
         </el-form-item>
-<!--        <el-form-item>
-          <el-dropdown trigger="click" style="float: right;" @command="handleCommand">
-                          <span class="el-dropdown-link" style="cursor:default;">
-                            {{dropdownTitle}}<i class="el-icon-sort el-icon&#45;&#45;right"></i>
-                          </span>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="zh_CN">
-                中文
-              </el-dropdown-item>
-              <el-dropdown-item command="en_US">
-                英文
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </el-form-item>-->
+        <el-form-item prop="passwordConfirm">
+          <el-input v-model="registerModel.passwordConfirm" type="password" autocomplete="off"
+                    placeholder="请再次输入密码" clearable></el-input>
+        </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-on:click="onClickLogin('loginForm')">登录
+          <el-button type="primary" v-on:click="onClickRegister('registerForm')">注册
           </el-button>
         </el-form-item>
       </el-form>
     </el-main>
-    <el-footer>许可证编号：<a href="http://beian.miitbeian.gov.cn">粤ICP备19097013号</a></el-footer>
   </el-container>
 </template>
 
 <script>
   export default {
-    name: 'Login',
-    data: () => {
+    name: "Register",
+    data() {
       let checkInput = function (rule, value, callback) {
         let pattern = /^[0-9a-zA-Z]{4,12}$/;
         if (!pattern.test(value)) {
           callback(new Error("需要4个字符以上，并且只能是数字或者字母组成"));
         } else callback()
       };
+      let checkPsConf = function (rule, value, callback) {
+
+        let password = document.querySelector('#password').value
+        if (password !== value)
+          callback(new Error("两次输入的密码不一致"));
+        else callback()
+      };
 
       return {
-        loginModel: {
+        registerModel: {
           name: '',
-          password: ''
+          password: '',
+          passwordConfirm: ''
         },
-        loginRules: {
+        registerRules: {
           name: [
             {required: true, message: '请输入账号', trigger: 'blur'},
             {validator: checkInput, trigger: 'blur'}
@@ -61,27 +58,28 @@
           password: [
             {required: true, message: '请输入密码', trigger: 'blur'},
             {validator: checkInput, trigger: 'blur'}
+          ],
+          passwordConfirm: [
+            {required: true, message: '请输入密码', trigger: 'blur'},
+            {validator: checkPsConf, trigger: 'blur'}
           ]
-        },
-        dropdownTitle: '中文'
+        }
       }
     },
     methods: {
-      onClickLogin(formName) {
+      onClickRegister(formName) {
         this.$refs[formName].validate((isValid) => {
           let model = this.$refs[formName].model;
           if (isValid) {
-            this.$post('/user/login', {
+            this.$post('/user/register', {
               name: model.name,
               password: model.password
-            }).then(result => {
-              this.$store.commit('user/setUser', result.data)
-              this.$router.push("/web");
+            }).then(data => {
+              this.$router.push("/login");
             })
           }
         });
-      },
-      handleCommand(command) {
+
       }
     }
   }
@@ -96,11 +94,7 @@
     font-size: 26px;
   }
 
-  .el-footer{
-    text-align: center;
-  }
-
-  .login-container {
+  .register-container {
     border-radius: 5px;
     -moz-border-radius: 5px;
     background-clip: padding-box;
@@ -114,7 +108,7 @@
     box-shadow: 0 0 25px #cac6c6;
   }
 
-  .login-container .title {
+  .register-container .title {
     margin: 0 auto 25px;
     text-align: center;
     color: #222222;
@@ -130,8 +124,4 @@
     text-decoration: none;
   }
 
-  .el-dropdown-link {
-    cursor: pointer;
-    color: #409EFF;
-  }
 </style>

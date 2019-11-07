@@ -19,6 +19,7 @@ export default new Router({
       redirect: '/login'
     },
     route('/login', '/Login', 'Login'),
+    route('/register', '/Register', 'Register'),
     route('/web', '/Web', 'Web', [
       //device
       route('/device/device', '/device/Device', "Device", [

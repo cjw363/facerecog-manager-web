@@ -6,9 +6,9 @@
         <el-col :xs="4" :sm="9" :md="9" :lg="13" :xl="13">
           <div style="height: 60px;"></div>
         </el-col>
-        <el-col :xs="5" :sm="4" :md="4" :lg="3" :xl="3"><a href="#">xx , 你好</a></el-col>
-        <el-col :xs="4" :sm="3" :md="3" :lg="2" :xl="2"><a href="#">修改密码</a></el-col>
-        <el-col :xs="3" :sm="2" :md="2" :lg="1" :xl="1"><a href="#">注销</a></el-col>
+        <el-col :xs="5" :sm="4" :md="4" :lg="3" :xl="3"><a href="#">{{user.username}} , 你好</a></el-col>
+        <el-col :xs="4" :sm="3" :md="3" :lg="2" :xl="2"><a href="#" @click="openDialogChangePassword">修改密码</a></el-col>
+        <el-col :xs="3" :sm="2" :md="2" :lg="1" :xl="1"><a href="#" @click="logout">注销</a></el-col>
       </el-row>
     </el-header>
     <el-container>
@@ -24,12 +24,15 @@
         <router-view/>
       </el-main>
     </el-container>
+
+    <DialogChangePassword ref="refDialogChangePassword"/>
   </el-container>
 </template>
 
 <script>
   import {menuData} from '@/components/menu/MenuDB'
   import NavMenu from '@/components/menu/NavMenu'
+  import DialogChangePassword from './user/dialog/DialogChangePassword'
 
   export default {
     name: "Web",
@@ -44,10 +47,24 @@
       }
     },
     components: {
-      NavMenu
+      NavMenu,
+      DialogChangePassword
     },
-    created(){
+    created() {
       this.$router.push("/device/device")
+    },
+    methods: {
+      openDialogChangePassword() {
+        this.$refs.refDialogChangePassword.visible = true
+      },
+      logout() {
+        this.$post('/user/logout').then(result => this.$router.push("/login"))
+      }
+    },
+    computed: {
+      'user': function () {
+        return this.$store.getters['user/getUser']
+      }
     }
   }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <el-container>
+  <el-container :style="background">
     <el-header>人脸识别系统</el-header>
     <el-main>
       <el-form class="demo-ruleForm login-container" :model="loginModel" :rules="loginRules" ref="loginForm">
@@ -63,7 +63,12 @@
             {validator: checkInput, trigger: 'blur'}
           ]
         },
-        dropdownTitle: '中文'
+        dropdownTitle: '中文',
+        background: {
+          backgroundImage: "url(" + require("../assets/images/background.jpg") + ")",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "100% 100%"
+        },
       }
     },
     methods: {
@@ -90,7 +95,7 @@
 <style scoped>
   .el-header {
     margin-top: 100px;
-    color: #222222;
+    color: #fff;
     text-align: center;
     line-height: 60px;
     font-size: 26px;

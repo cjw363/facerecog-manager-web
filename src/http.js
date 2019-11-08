@@ -4,8 +4,9 @@ import qs from 'qs';
 import router from './router'
 import Message from './components/messages';
 
-axios.defaults.baseURL = 'http://127.0.0.1:8080/cpfr' // 设置axios的基础请求路径
-// axios.defaults.baseURL = 'http://152.136.134.235:9090/cpfr' // 设置axios的基础请求路径
+// axios.defaults.baseURL = 'http://127.0.0.1:8080/cpfr' // 设置axios的基础请求路径
+// axios.defaults.baseURL = 'http://152.136.134.235:9090/cpfr'
+axios.defaults.baseURL = 'http://132.232.108.138/cpfr/'
 axios.defaults.timeout = 30000 // 设置axios的请求时间
 axios.defaults.withCredentials = true; // 允许携带cookie 解决不同端口cookie失效问题
 axios.defaults.headers = {

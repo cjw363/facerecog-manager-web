@@ -33,7 +33,7 @@
         </el-form-item>
       </el-form>
     </el-main>
-    <el-footer>许可证编号：<a href="http://beian.miitbeian.gov.cn">粤ICP备19097013号</a></el-footer>
+    <!--<el-footer>许可证编号：<a href="http://beian.miitbeian.gov.cn">粤ICP备19097013号</a></el-footer>-->
   </el-container>
 </template>
 

@@ -2,7 +2,7 @@
   "name": "facerecog-manager-web",
   "version": "1.0.0",
   "description": "A Vue.js project",
-  "author": "cjw363 <asd6555363>",
+  "author": "cjw363",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",

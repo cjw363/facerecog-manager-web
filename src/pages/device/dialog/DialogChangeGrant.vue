@@ -138,10 +138,10 @@
         } else {
           this.dialogModel.radio2 = '3';
         }
+      },
+      changeDialogGrantPersonVs() {
+        this.visible = !this.visible
       }
-    },
-    changeDialogGrantPersonVs() {
-      this.visible = !this.visible
     }
   }
 </script>
